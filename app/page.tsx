@@ -10,6 +10,7 @@ import { Radiar } from '@/components/radiarchart';
 import { Roundbar } from '@/components/roundbar';
 import JoyrideWrapper, { useJoyride } from '@/components/utils/JoyrideWrapper';
 import { Step } from 'react-joyride';
+import OnboardingWizard from '@/components/utils/Onboarding';
 
 const steps: Step[] = [
   {
@@ -106,6 +107,7 @@ const App: React.FC = () => {
   return (
     <JoyrideWrapper steps={steps}>
       <Home />
+      <OnboardingWizard />
     </JoyrideWrapper>
   );
 };
