@@ -1,7 +1,6 @@
 // src/components/Navbar.js
 "use client"
 import { motion } from 'framer-motion';
-import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import { ModeToggle } from './toggle';
 import { PiPulse } from 'react-icons/pi';
 
