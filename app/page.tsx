@@ -1,101 +1,113 @@
-import Image from "next/image";
+// app/page.tsx
+"use client"; // This ensures the component is a Client Component
+import React from 'react';
+import { FiHelpCircle } from 'react-icons/fi'; // Import the icon for the button
+import { LineChart2 } from '@/components/LineChart2';
+import Navbar from '@/components/Navbar';
+import { Barchart } from '@/components/barchart';
+import { Component } from '@/components/dashboard';
+import { LongChart } from '@/components/longchart';
+import { Radiar } from '@/components/radiarchart';
+import { Roundbar } from '@/components/roundbar';
+import JoyrideWrapper, { useJoyride } from '@/components/utils/JoyrideWrapper';
+import { Step } from 'react-joyride';
 
-export default function Home() {
+const steps: Step[] = [
+  {
+    target: '.navbar',
+    content: 'This is the navigation bar, containing links to different sections of the platform.',
+    title: 'Navigation',
+  },
+  {
+    target: '.component',
+    content: 'Shows key metrics based on Google Search Console data.',
+    title: 'Lost Users - GSC Metrics',
+  },
+  {
+    target: '.barchart',
+    content: 'Displays CTR growth for key search queries over time.',
+    title: 'CTR Growth',
+  },
+  {
+    target: '.roundbar',
+    content: 'Shows visitor distribution by region.',
+    title: 'Geographic Usage',
+    placement: 'top',
+  },
+  {
+    target: '.longchart',
+    content: 'Displays impressions from Google Search Console, segmented by device.',
+    title: 'Search Console Impressions',
+    placement: 'left',
+  },
+  {
+    target: '.change-date',
+    content: 'Use this option to modify the date range and view data for different periods. Select a custom range to analyze specific trends.',
+    title: 'Modify Date Range',
+    placement: 'left',
+  },  
+  {
+    target: '.radiar',
+    content: 'Highlights popular search terms related to Queenstown tourism.',
+    title: 'Marketing Keywords',
+    placement: 'right',
+  },
+  {
+    target: '.linechart',
+    content: 'Breakdown of user traffic by device type.',
+    title: 'User Traffic by Device',
+    placement: 'bottom',
+  },
+];
+
+// Main Home component
+const Home: React.FC = () => {
+  const { startTour } = useJoyride();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="flex min-h-screen flex-col items-center p-6">
+      <Navbar />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Tour Start Button as an Icon in the Bottom Right Corner */}
+      <button
+        onClick={startTour}
+        className="fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 shadow-lg transition-colors"
+        aria-label="Start Tour"
+      >
+        <FiHelpCircle className="h-8 w-8" />
+      </button>
+
+      <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-24">
+        <div className="col-span-1 component">
+          <Component />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="col-span-1 barchart">
+          <Barchart />
+        </div>
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1 roundbar">
+          <Roundbar />
+        </div>
+        <div className="col-span-1 sm:col-span-2 lg:col-span-3 longchart">
+          <LongChart />
+        </div>
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1 radiar">
+          <Radiar />
+        </div>
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 linechart">
+          <LineChart2 />
+        </div>
+      </div>
+    </main>
   );
-}
+};
+
+// Wrap Home with JoyrideWrapper
+const App: React.FC = () => {
+  return (
+    <JoyrideWrapper steps={steps}>
+      <Home />
+    </JoyrideWrapper>
+  );
+};
+
+export default App;
