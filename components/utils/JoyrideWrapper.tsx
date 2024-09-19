@@ -1,4 +1,3 @@
-// components/utils/JoyrideWrapper.tsx
 "use client";
 import React, { useState, createContext, useContext } from 'react';
 import dynamic from 'next/dynamic';
@@ -7,6 +6,17 @@ import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 // Dynamically import react-joyride to prevent SSR issues
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
+
+// Utility function to check if an element is in the viewport
+const isElementInViewport = (el: HTMLElement) => {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+};
 
 // Define button styles
 const buttonStyles = {
@@ -80,9 +90,17 @@ const JoyrideWrapper: React.FC<JoyrideWrapperProps> = ({ steps, children }) => {
     setRunTour(true);
   };
 
-  // Handle Joyride callbacks
+  // Handle Joyride callbacks and disable scroll if element is in view
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status } = data;
+    const { status, step } = data;
+
+    // Check if the step target element is in the viewport
+    const element = document.querySelector(step.target as string) as HTMLElement;
+    if (element && isElementInViewport(element)) {
+      // If element is in view, prevent scroll
+      data.lifecycle = 'tooltip';
+    }
+
     if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
       setRunTour(false);
     }
@@ -99,7 +117,8 @@ const JoyrideWrapper: React.FC<JoyrideWrapperProps> = ({ steps, children }) => {
           showProgress
           disableOverlayClose
           disableCloseOnEsc
-          scrollToFirstStep={true}
+          scrollToFirstStep={false}  // Disable automatic scrolling
+ // Control scrolling manually
           spotlightPadding={10}
           styles={{
             options: {

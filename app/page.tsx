@@ -3,7 +3,6 @@
 import React from 'react';
 import { FiHelpCircle } from 'react-icons/fi'; // Import the icon for the button
 import { LineChart2 } from '@/components/LineChart2';
-import Navbar from '@/components/Navbar';
 import { Barchart } from '@/components/barchart';
 import { Component } from '@/components/dashboard';
 import { LongChart } from '@/components/longchart';
@@ -22,6 +21,7 @@ const steps: Step[] = [
     target: '.component',
     content: 'Shows key metrics based on Google Search Console data.',
     title: 'Lost Users - GSC Metrics',
+
   },
   {
     target: '.barchart',
@@ -66,15 +66,15 @@ const Home: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-6">
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Tour Start Button as an Icon in the Bottom Right Corner */}
       <button
         onClick={startTour}
-        className="fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 shadow-lg transition-colors"
+        className="fixed bottom-5 z-50 right-5 animate-bounce bg-cyan-600 text-white p-3 rounded-full hover:bg-blue-600 shadow-lg transition-colors"
         aria-label="Start Tour"
       >
-        <FiHelpCircle className="h-8 w-8" />
+         <FiHelpCircle className="h-8 w-8" />
       </button>
 
       <div className="max-w-7xl w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-24">
